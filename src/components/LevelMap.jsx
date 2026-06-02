@@ -6,6 +6,18 @@ import { useUser } from '../context/UserContext'
 const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6, 7])
 const TOTAL_QUESTIONS  = 50
 
+// Short topic tags shown below the big level number
+const TOPIC_TAGS = {
+  1: 'Java Basics',
+  2: 'Encapsulation',
+  3: 'Inheritance',
+  4: 'Abstract',
+  5: 'Interfaces',
+  6: 'Collections',
+  7: 'Wildcards',
+  8: 'Locked',
+}
+
 // ─── Per-level color themes ───────────────────────────────────────────────────
 const THEMES = {
   1: { grad: 'linear-gradient(135deg,#1e3a8a 0%,#6d28d9 100%)', accent: '#818cf8', glow: 'rgba(129,140,248,0.55)' },
@@ -172,33 +184,34 @@ function LevelCard({ level, pct, available, index }) {
                }} />
         )}
 
-        {/* ── Badge ───────────────────────────────────────────────── */}
-        <div className="absolute top-3.5 left-3.5 z-10 px-2 py-0.5 rounded-full
-                        text-[10px] font-black tracking-widest"
-             style={{
-               background:   'rgba(0,0,0,0.4)',
-               border:       `1px solid ${theme.accent}55`,
-               color:        theme.accent,
-               backdropFilter: 'blur(6px)',
-             }}>
-          {num}
-        </div>
-
-        {/* ── Emoji center top half ────────────────────────────────── */}
-        <div className="absolute inset-x-0 flex items-center justify-center"
+        {/* ── Number + topic tag — center top half ────────────────── */}
+        <div className="absolute inset-x-0 flex flex-col items-center justify-center gap-2"
              style={{ top: 0, height: '58%' }}>
+          {/* Big level number with gradient + glow */}
           <span
-            className="text-6xl leading-none"
+            className="font-black leading-none tabular-nums"
             style={{
+              fontSize: 'clamp(3.5rem, 8vw, 5rem)',
+              background: available
+                ? `linear-gradient(160deg, #ffffff 0%, ${theme.accent} 60%)`
+                : 'linear-gradient(160deg,#6b7280,#374151)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor:  'transparent',
               filter: available
-                ? `drop-shadow(0 0 18px ${theme.accent}cc) drop-shadow(0 0 40px ${theme.accent}55)`
-                : 'grayscale(1) opacity(0.4)',
-              transform: hovered ? 'scale(1.15) translateY(-5px)' : 'scale(1)',
+                ? `drop-shadow(0 0 14px ${theme.accent}99) drop-shadow(0 0 30px ${theme.accent}44)`
+                : 'none',
+              transform: hovered ? 'scale(1.08) translateY(-3px)' : 'scale(1)',
               transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)',
-              display: 'block',
             }}
           >
-            {available ? level.icon : '🔒'}
+            {num}
+          </span>
+          {/* Topic tag */}
+          <span
+            className="text-[9px] font-semibold uppercase tracking-[0.22em] leading-none"
+            style={{ color: available ? `${theme.accent}99` : '#4b556380' }}
+          >
+            {TOPIC_TAGS[level.id] ?? 'Locked'}
           </span>
         </div>
 
@@ -280,7 +293,8 @@ export default function LevelMap() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StatsBar progress={user?.progress} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
         {levels.map((level, i) => (
           <LevelCard
             key={level.id}
@@ -291,7 +305,6 @@ export default function LevelMap() {
           />
         ))}
       </div>
-      <StatsBar progress={user?.progress} />
     </div>
   )
 }
