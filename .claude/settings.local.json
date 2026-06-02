@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/zivlustig/.nvm/versions/**)"
+    ]
+  }
+}

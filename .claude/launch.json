@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oop-practice",
+      "runtimeExecutable": "/Users/zivlustig/.local/bin/node",
+      "runtimeArgs": ["/Users/zivlustig/Desktop/PracticeOOP/node_modules/.bin/vite", "--port", "5173"],
+      "port": 5173
+    }
+  ]
+}
