@@ -23,6 +23,7 @@ const questionModules = {
   4: () => import('../data/level4.json'),
   5: () => import('../data/level5.json'),
   6: () => import('../data/level6.json'),
+  7: () => import('../data/level7.json'),
 }
 
 export default function Quiz() {

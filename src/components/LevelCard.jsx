@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // Levels that have question data ready
-const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6])
+const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6, 7])
 
 export default function LevelCard({ level }) {
   const navigate  = useNavigate()
