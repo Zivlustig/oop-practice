@@ -46,6 +46,34 @@
   50%     { opacity: 0.65; }
 }
 
+/* ── Mastery popup entrance ─────────────────────────────────────────────────── */
+@keyframes modal-entrance {
+  from { opacity: 0; transform: scale(0.82) translateY(16px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ── Trophy celebration ──────────────────────────────────────────────────────── */
+@keyframes trophy-celebrate {
+  0%,100% { transform: translateY(0)    rotate(0deg)  scale(1);    }
+  20%     { transform: translateY(-14px) rotate(-8deg) scale(1.08); }
+  40%     { transform: translateY(-10px) rotate(6deg)  scale(1.05); }
+  60%     { transform: translateY(-16px) rotate(-4deg) scale(1.1);  }
+  80%     { transform: translateY(-8px)  rotate(5deg)  scale(1.04); }
+}
+
+/* ── Confetti burst ──────────────────────────────────────────────────────────── */
+@keyframes confetti-burst {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.4); opacity: 0; }
+}
+
+/* ── Overlay fade in ─────────────────────────────────────────────────────────── */
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* ── Title neon flicker (subtle) ─────────────────────────────────────────────── */
 @keyframes neon-breathe {
   0%,100% { filter: drop-shadow(0 0 20px rgba(139,92,246,0.5)) drop-shadow(0 0 50px rgba(139,92,246,0.25)); }

@@ -5,6 +5,7 @@ import { useUser } from '../context/UserContext'
 import ProgressBar from '../components/ProgressBar'
 import QuestionCard from '../components/QuestionCard'
 import ResultsScreen from '../components/ResultsScreen'
+import MasteryPopup from '../components/MasteryPopup'
 
 // ─── Weighted shuffle ─────────────────────────────────────────────────────────
 // unseen = 5 (most likely to appear), wrong = 3, correct = 1 (least likely)
@@ -53,13 +54,14 @@ export default function Quiz() {
   const level      = levels.find(l => l.id === levelId)
   const { user, updateQuestionResult } = useUser()
 
-  const [questions, setQuestions] = useState(null)
-  const [current,   setCurrent]   = useState(0)
-  const [selected,  setSelected]  = useState(null)
-  const [answered,  setAnswered]  = useState(false)
-  const [score,     setScore]     = useState(0)
-  const [finished,  setFinished]  = useState(false)
-  const [attempt,   setAttempt]   = useState(0)    // incremented by Try Again
+  const [questions,    setQuestions]    = useState(null)
+  const [current,      setCurrent]      = useState(0)
+  const [selected,     setSelected]     = useState(null)
+  const [answered,     setAnswered]     = useState(false)
+  const [score,        setScore]        = useState(0)
+  const [finished,     setFinished]     = useState(false)
+  const [attempt,      setAttempt]      = useState(0)    // incremented by Try Again
+  const [showMastery,  setShowMastery]  = useState(false)
 
   // Load + weighted-shuffle whenever we start or retry.
   // We intentionally capture the user's progress AT THIS MOMENT (not reactive),
@@ -108,6 +110,19 @@ export default function Quiz() {
     setAnswered(true)
     if (isCorrect) setScore(s => s + 1)
     updateQuestionResult(levelId, q.id, isCorrect)
+
+    // ── Mastery check ───────────────────────────────────────────────────────
+    // Build the would-be progress map optimistically (state won't update until
+    // next render, so we merge the current answer in manually).
+    if (isCorrect) {
+      const prevProgress = user?.progress?.[levelId] ?? {}
+      const newProgress  = { ...prevProgress, [String(q.id)]: 'correct' }
+      const correctCount = Object.values(newProgress).filter(v => v === 'correct').length
+      if (correctCount >= questions.length) {
+        // Delay so the answer feedback (green highlight + explanation) is visible first
+        setTimeout(() => setShowMastery(true), 500)
+      }
+    }
   }
 
   function handleNext() {
@@ -123,6 +138,19 @@ export default function Quiz() {
   // ── Quiz UI ────────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      {showMastery && (
+        <MasteryPopup
+          levelId={levelId}
+          levelTitle={level.title}
+          onKeepPracticing={() => {
+            setShowMastery(false)
+            // Restart the quiz from scratch with updated weights
+            setCurrent(0); setSelected(null)
+            setAnswered(false); setScore(0); setFinished(false)
+            setAttempt(a => a + 1)
+          }}
+        />
+      )}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/10 via-gray-900 to-gray-900 pointer-events-none" />
 
       <div className="relative max-w-2xl mx-auto px-4 py-6 flex flex-col gap-6">
