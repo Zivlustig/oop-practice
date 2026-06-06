@@ -111,7 +111,7 @@ export default function LevelSelect() {
       >
         {/* Left — logo wordmark */}
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-xl leading-none">☕</span>
+          <span className="text-xl leading-none">🎓</span>
           <span className="text-sm font-bold tracking-tight text-white/80 hidden sm:block">
             OOP Practice
           </span>
@@ -160,7 +160,7 @@ export default function LevelSelect() {
         <div className="text-center mb-14">
           <p className="text-[11px] font-semibold uppercase tracking-[0.3em] mb-5"
              style={{ color: '#a78bfa', letterSpacing: '0.3em' }}>
-            ☕ &nbsp;Java Mastery Track
+            🎓 &nbsp;Java Mastery Track
           </p>
 
           {/* Neon glow title — filter on wrapper so drop-shadow reaches gradient text */}

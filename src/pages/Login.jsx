@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { db, auth } from '../firebase'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { signInAnonymously } from 'firebase/auth'
 import { useUser } from '../context/UserContext'
 
@@ -40,14 +40,17 @@ export default function Login() {
       console.log(`[${action}]   auth.currentUser after:`, auth.currentUser)
 
       if (isSignUp) {
-        // ── Step 2 (signup): Check if username already exists ───────────────
+        // ── Step 2 (signup): Check existence with a plain getDoc ────────────
+        // Do NOT use loadUser() here — it calls setUser() on success, which
+        // would silently log the person in and navigate away before the error
+        // message can ever be shown.
         console.log(`[${action}] Step 2: checking if username "${trimmed}" already exists in Firestore...`)
-        const existing = await loadUser(trimmed)
-        console.log(`[${action}] Step 2 result — existing user:`, existing)
+        const snap = await getDoc(doc(db, 'users', trimmed))
+        console.log(`[${action}] Step 2 result — doc exists: ${snap.exists()}`)
 
-        if (existing) {
+        if (snap.exists()) {
           console.log(`[${action}] Username taken, aborting.`)
-          setError('Username already taken — try another.')
+          setError('Username already taken. Please choose another one.')
           setBusy(false)
           return
         }
@@ -106,7 +109,7 @@ export default function Login() {
       <div className="relative w-full max-w-sm">
         {/* Hero */}
         <div className="text-center mb-10">
-          <div className="text-6xl mb-4">☕</div>
+          <div className="text-6xl mb-4">🎓</div>
           <h1 className="text-4xl font-extrabold text-white mb-2">OOP Practice</h1>
           <p className="text-gray-400 text-sm">Master Java OOP — one level at a time</p>
         </div>

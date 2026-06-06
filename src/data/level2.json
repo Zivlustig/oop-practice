@@ -1,52 +1,602 @@
 [
-  {"id":1,"question":"Which statement best describes encapsulation?","options":["A. Storing all variables as public","B. Hiding implementation details and controlling access to data","C. Using only static methods","D. Creating many constructors"],"correct":"B","explanation":"Encapsulation hides internal data and allows controlled access through methods such as getters and setters."},
-  {"id":2,"question":"Why are class fields usually declared private?","options":["A. To save memory","B. To make code run faster","C. To prevent uncontrolled direct access","D. To allow inheritance"],"correct":"C","explanation":"Private fields enforce encapsulation by preventing external classes from modifying data directly."},
-  {"id":3,"question":"What is the main purpose of a setter method?","options":["A. Print a field value","B. Update a field in a controlled way","C. Delete an object","D. Create an object"],"correct":"B","explanation":"Setters allow validation and controlled modification of private fields."},
-  {"id":4,"question":"What does this.age refer to in the following code?\n\nprivate int age;\n\npublic void setAge(int age) {\n    this.age = age;\n}","options":["A. The parameter named age","B. A local variable","C. The current object's field","D. A static variable"],"correct":"C","explanation":"The this keyword refers to the current object, so this.age is the object's field, not the parameter."},
-  {"id":5,"question":"Which access modifier allows access only from inside the same class?","options":["A. public","B. protected","C. package","D. private"],"correct":"D","explanation":"Private members can only be accessed within the class they are declared in."},
-  {"id":6,"question":"What is a constructor?","options":["A. A special variable","B. A method used to destroy objects","C. A method used to initialize objects when they are created","D. A static method"],"correct":"C","explanation":"Constructors initialize the object's state at the moment of creation with new."},
-  {"id":7,"question":"Which statement correctly creates an object?","options":["A. Person p;","B. Person = new p();","C. Person p = new Person();","D. new Person p();"],"correct":"C","explanation":"new Person() creates the object on the heap and assigns its reference to the variable p."},
-  {"id":8,"question":"When does Java automatically provide a default (no-argument) constructor?","options":["A. Always","B. Only if no constructor is defined by the programmer","C. Only if all fields are private","D. Never"],"correct":"B","explanation":"Once you define any constructor yourself, Java stops generating the default no-arg constructor."},
-  {"id":9,"question":"How many objects are created by the following code?\n\nPerson p1 = new Person();\np1 = new Person();","options":["A. 0","B. 1","C. 2","D. 3"],"correct":"C","explanation":"Each new Person() creates a separate object on the heap, so two objects are created in total."},
-  {"id":10,"question":"What does new Person[5] create?","options":["A. Five Person objects","B. One Person object","C. An array capable of holding five Person references","D. Nothing"],"correct":"C","explanation":"new Person[5] creates the array structure only. The five slots are initialized to null, not to Person objects."},
-  {"id":11,"question":"How many Person objects exist after the following line?\n\nPerson[] arr = new Person[5];","options":["A. 0","B. 1","C. 5","D. 6"],"correct":"A","explanation":"Only the array itself is created. No Person objects are instantiated — all slots are null."},
-  {"id":12,"question":"How many Person objects are created by the following code?\n\nPerson[] arr = new Person[3];\nfor (int i = 0; i < 3; i++)\n    arr[i] = new Person();","options":["A. 1","B. 2","C. 3","D. 4"],"correct":"C","explanation":"Each iteration of the loop calls new Person(), creating one object per iteration — 3 total."},
-  {"id":13,"question":"What is true about the following code?\n\nPerson obj = new Person();\nfor (int i = 0; i < 3; i++)\n    arr[i] = obj;","options":["A. Three different Person objects exist","B. One object is shared — all array cells point to the same object","C. No object exists","D. Compilation error"],"correct":"B","explanation":"obj holds one reference. Assigning it to all cells means they all point to the same single object."},
-  {"id":14,"question":"What does the == operator compare when used between two object variables?","options":["A. The contents of the object's fields","B. The memory references (addresses) of the objects","C. The constructor values","D. The class names"],"correct":"B","explanation":"== checks whether two references point to the exact same object in memory, not whether their fields are equal."},
-  {"id":15,"question":"What is printed by the following code?\n\nPerson p1 = new Person();\nPerson p2 = new Person();\nSystem.out.println(p1 == p2);","options":["A. true","B. false","C. 0","D. Compilation error"],"correct":"B","explanation":"p1 and p2 are two separate objects at different memory addresses, so == returns false."},
-  {"id":16,"question":"What is method overloading?","options":["A. Replacing an inherited method with a new implementation","B. Defining multiple methods with the same name but different parameter lists","C. Having multiple classes with the same name","D. Using only static methods in a class"],"correct":"B","explanation":"Overloading means the same method name can exist with different numbers or types of parameters."},
-  {"id":17,"question":"Which pair of method signatures is a valid example of overloading?","options":["A. sum(int, int) and sum(int, int)","B. sum(int, int) and sum(double, double)","C. sum(int, int) and SUM(int, int)","D. sum(int, int) and sum(int, int) with different return types"],"correct":"B","explanation":"Valid overloading requires different parameter types or count. Only option B has genuinely different parameter types."},
-  {"id":18,"question":"Can two methods differ only in return type and be considered overloaded?","options":["A. Yes","B. No","C. Only for static methods","D. Only for constructors"],"correct":"B","explanation":"The parameter list must differ for overloading. Return type alone is not enough — Java cannot distinguish the call."},
-  {"id":19,"question":"Why is method overloading useful?","options":["A. It reduces memory usage","B. It allows one logical operation to handle different parameter types cleanly","C. It prevents inheritance","D. It creates static variables automatically"],"correct":"B","explanation":"Overloading lets you use one intuitive method name (like print or add) for related operations on different types."},
-  {"id":20,"question":"What does backward compatibility mean in the context of overloading?","options":["A. Deleting old methods when adding new ones","B. Keeping existing method signatures while adding new overloaded versions","C. Using only static methods","D. Avoiding constructors entirely"],"correct":"B","explanation":"Backward compatibility means old code that calls existing method signatures continues to work after new versions are added."},
-  {"id":21,"question":"What problem can backward compatibility through overloading introduce?","options":["A. Compilation failure","B. Duplicate or redundant code across overloaded methods","C. Memory leak","D. Stack overflow"],"correct":"B","explanation":"When you keep old methods alongside new ones, you may end up with similar logic duplicated in multiple methods."},
-  {"id":22,"question":"How can duplicated code across overloaded methods be reduced?","options":["A. Delete the older methods","B. Have the older overloaded version call the newer one with converted arguments","C. Use only private variables","D. Use arrays instead of parameters"],"correct":"B","explanation":"The older method can convert its arguments and delegate to the more general version, keeping the logic in one place."},
-  {"id":23,"question":"What does the following method signature mean?\n\ndouble average(double... args)","options":["A. A recursive method","B. A generic method","C. A method that accepts a variable number of double arguments","D. An array constructor"],"correct":"C","explanation":"The ... syntax is varargs — it lets you pass any number of double values, which are treated as an array inside the method."},
-  {"id":24,"question":"Which of the following calls to average(double... args) are valid?","options":["A. average()","B. average(1.0, 2.0)","C. average(arr) where arr is a double[]","D. All of the above"],"correct":"D","explanation":"Varargs accepts zero arguments, multiple arguments, or an existing array of the matching type."},
-  {"id":25,"question":"Why is overriding toString() useful?","options":["A. It creates objects automatically","B. It lets you convert an object into a human-readable string representation","C. It changes field values","D. It makes methods static"],"correct":"B","explanation":"toString() is called automatically when an object is printed or concatenated with a string, so overriding it gives meaningful output."},
-  {"id":26,"question":"What happens when you call System.out.println(date1) and the Date class overrides toString()?","options":["A. A runtime error occurs","B. toString() is called automatically and its result is printed","C. The constructor is called","D. The getter is called"],"correct":"B","explanation":"println calls toString() on the object automatically when it needs a String representation."},
-  {"id":27,"question":"What is a class in Java?","options":["A. A variable","B. A blueprint that defines the structure and behavior of objects","C. A method","D. A package"],"correct":"B","explanation":"A class is a template — it defines what fields and methods its objects will have."},
-  {"id":28,"question":"What is an object in Java?","options":["A. A package","B. A method call","C. A specific instance created from a class","D. A constructor"],"correct":"C","explanation":"An object is a concrete instance of a class, with its own copy of the class's fields."},
-  {"id":29,"question":"Which part of a class defines its behavior?","options":["A. Fields only","B. Methods","C. Packages","D. Import statements"],"correct":"B","explanation":"Methods define what an object can do — they contain the executable logic."},
-  {"id":30,"question":"Which part of a class defines its state?","options":["A. Fields","B. Methods","C. Constructors","D. Import statements"],"correct":"A","explanation":"Fields (instance variables) store the data that represents an object's current state."},
-  {"id":31,"question":"Where is a local variable declared?","options":["A. Inside a method or block","B. Outside a class","C. In a package declaration","D. In import statements"],"correct":"A","explanation":"Local variables are declared within a method or block and only exist during that method's execution."},
-  {"id":32,"question":"What is true about local variables?","options":["A. They are automatically initialized to zero","B. They must be explicitly initialized before use","C. They are shared by all methods in the class","D. They are stored as static"],"correct":"B","explanation":"Unlike fields, local variables have no default value — using one before initializing it causes a compilation error."},
-  {"id":33,"question":"What is true about static (class-level) fields?","options":["A. A new copy is created with every method call","B. They are shared by all instances of the class","C. They must always be private","D. They only exist inside constructors"],"correct":"B","explanation":"Static fields belong to the class itself, so all objects share the same single copy."},
-  {"id":34,"question":"What will count equal after the following, if each call to func() executes count++?\n\nstatic int count = 0;\nfunc();\nfunc();\nfunc();","options":["A. 0","B. 1","C. 2","D. 3"],"correct":"D","explanation":"count is a static field shared across all calls. Three increments bring it from 0 to 3."},
-  {"id":35,"question":"How do you correctly access a static field from another class?","options":["A. Through an object reference only","B. Using ClassName.fieldName","C. Using the field name alone","D. Using this.fieldName"],"correct":"B","explanation":"Static members belong to the class, so the correct syntax is ClassName.fieldName (e.g. Counter.count)."},
-  {"id":36,"question":"What is a qualified name in Java?","options":["A. A variable declaration","B. A full reference that includes the class name and the member name","C. A constructor call","D. A package declaration only"],"correct":"B","explanation":"A qualified name combines a class (or object) name with a member, like Math.PI or System.out."},
-  {"id":37,"question":"Why do we use import statements in Java?","options":["A. To create objects","B. To access classes from other packages without writing their full qualified name","C. To overload methods","D. To initialize fields"],"correct":"B","explanation":"import lets you write Scanner instead of java.util.Scanner throughout your code."},
-  {"id":38,"question":"Which statement about static methods is true?","options":["A. They belong to individual objects","B. They belong to the class itself and are called on the class","C. They require the this keyword","D. They must always be private"],"correct":"B","explanation":"Static methods are invoked on the class (e.g. Math.sqrt()), not on an instance."},
-  {"id":39,"question":"Can a static method directly access an instance field?","options":["A. Yes, always","B. No — a static method has no implicit object, so it cannot access instance fields directly","C. Only if the field is private","D. Only through a constructor"],"correct":"B","explanation":"Instance fields belong to objects. A static method has no this, so it cannot directly reference instance state."},
-  {"id":40,"question":"Why can't the this keyword be used inside a static method?","options":["A. It causes a syntax error only in some IDEs","B. There is no current object — static methods belong to the class, not an instance","C. Static methods are always private","D. Static methods always return void"],"correct":"B","explanation":"this refers to the current object. Since static methods are not called on any object, this has no meaning there."},
-  {"id":41,"question":"In a canReplace(Product other) method, which condition is NOT required for one product to replace another?","options":["A. Same wireless type","B. Same rating","C. The other product is not more expensive","D. Same product name"],"correct":"D","explanation":"The replacement logic checks wireless type, rating, and price — the product name is irrelevant."},
-  {"id":42,"question":"Two products have the same rating and wireless type, but the other product costs more. What should canReplace() return?","options":["A. true","B. false","C. null","D. Compilation error"],"correct":"B","explanation":"If the candidate replacement costs more, the condition fails and canReplace() should return false."},
-  {"id":43,"question":"What is the time complexity of checking all pairs in a deals(Product[] arr) method?","options":["A. O(1)","B. O(n)","C. O(n²)","D. O(n³)"],"correct":"C","explanation":"A nested loop over n products compares every pair, giving O(n²) comparisons in total."},
-  {"id":44,"question":"In a deals() method, when should a pair of products be printed?","options":["A. When the same product appears twice","B. When the total price is below 500 and the two products are different","C. When they have the same rating","D. When they have the same wireless type"],"correct":"B","explanation":"The deal condition is that two distinct products together cost less than 500."},
-  {"id":45,"question":"In a MovieTicket.finalPrice() method, when is the discount applied?","options":["A. For VIP tickets only","B. For even seat numbers only","C. Only when the ticket is VIP and the seat number is even","D. For any ticket"],"correct":"C","explanation":"Both conditions must be true simultaneously: the ticket must be VIP and the seat number must be even."},
-  {"id":46,"question":"A VIP ticket costs 200 and has seat number 8. What does finalPrice() return?","options":["A. 160","B. 180","C. 200","D. 220"],"correct":"A","explanation":"Both conditions are met (VIP + even seat), so a 20% discount applies: 200 × 0.8 = 160."},
-  {"id":47,"question":"When should a changeSeat(MovieTicket other) method update the seat?","options":["A. Always","B. Only if the ticket prices are equal","C. Only if the movie names are equal","D. Never"],"correct":"C","explanation":"A seat change only makes sense for the same movie — the method checks that the movie names match first."},
-  {"id":48,"question":"What should a printByPrice(MovieTicket m) method display?","options":["A. All movies in the array","B. Movies cheaper than m","C. Movies with a higher price than m","D. VIP movies only"],"correct":"C","explanation":"The method filters and prints only those tickets whose price exceeds the given ticket m's price."},
-  {"id":49,"question":"What is the main advantage of using getter methods instead of public fields?","options":["A. Faster execution","B. Smaller objects in memory","C. Better control, validation, and the ability to change internal representation later","D. Automatic recursion"],"correct":"C","explanation":"Getters let you add validation, computed values, or change the internal field type without breaking outside code."},
-  {"id":50,"question":"Which concept is demonstrated by having three constructors in the same class?","options":["A. Encapsulation","B. Recursion","C. Constructor overloading","D. Static binding"],"correct":"C","explanation":"Multiple constructors with different parameter lists in the same class is constructor overloading."}
+  {
+    "id": 1,
+    "question": "Which statement best describes encapsulation?",
+    "options": [
+      "A. Storing all variables as public",
+      "B. Hiding implementation details and controlling access to data",
+      "C. Using only static methods",
+      "D. Creating many constructors"
+    ],
+    "correct": "B",
+    "explanation": "Encapsulation hides internal data and allows controlled access through methods such as getters and setters."
+  },
+  {
+    "id": 2,
+    "question": "Why are class fields usually declared private?",
+    "options": [
+      "A. To save memory",
+      "B. To make code run faster",
+      "C. To prevent uncontrolled direct access",
+      "D. To allow inheritance"
+    ],
+    "correct": "C",
+    "explanation": "Private fields enforce encapsulation by preventing external classes from modifying data directly."
+  },
+  {
+    "id": 3,
+    "question": "What is the main purpose of a setter method?",
+    "options": [
+      "A. Print a field value",
+      "B. Update a field in a controlled way",
+      "C. Delete an object",
+      "D. Create an object"
+    ],
+    "correct": "B",
+    "explanation": "Setters allow validation and controlled modification of private fields."
+  },
+  {
+    "id": 4,
+    "question": "What does this.age refer to in the following code?\n\nprivate int age;\n\npublic void setAge(int age) {\n    this.age = age;\n}",
+    "options": [
+      "A. The parameter named age",
+      "B. A local variable",
+      "C. The current object's field",
+      "D. A static variable"
+    ],
+    "correct": "C",
+    "explanation": "The this keyword refers to the current object, so this.age is the object's field, not the parameter."
+  },
+  {
+    "id": 5,
+    "question": "Which access modifier allows access only from inside the same class?",
+    "options": [
+      "A. public",
+      "B. protected",
+      "C. package",
+      "D. private"
+    ],
+    "correct": "D",
+    "explanation": "Private members can only be accessed within the class they are declared in."
+  },
+  {
+    "id": 6,
+    "question": "What is a constructor?",
+    "options": [
+      "A. A special variable",
+      "B. A method used to destroy objects",
+      "C. A method used to initialize objects when they are created",
+      "D. A static method"
+    ],
+    "correct": "C",
+    "explanation": "Constructors initialize the object's state at the moment of creation with new."
+  },
+  {
+    "id": 7,
+    "question": "Which statement correctly creates an object?",
+    "options": [
+      "A. Person p;",
+      "B. Person = new p();",
+      "C. Person p = new Person();",
+      "D. new Person p();"
+    ],
+    "correct": "C",
+    "explanation": "new Person() creates the object on the heap and assigns its reference to the variable p."
+  },
+  {
+    "id": 8,
+    "question": "When does Java automatically provide a default (no-argument) constructor?",
+    "options": [
+      "A. Always",
+      "B. Only if no constructor is defined by the programmer",
+      "C. Only if all fields are private",
+      "D. Never"
+    ],
+    "correct": "B",
+    "explanation": "Once you define any constructor yourself, Java stops generating the default no-arg constructor."
+  },
+  {
+    "id": 9,
+    "question": "How many objects are created by the following code?\n\nPerson p1 = new Person();\np1 = new Person();",
+    "options": [
+      "A. 0",
+      "B. 1",
+      "C. 2",
+      "D. 3"
+    ],
+    "correct": "C",
+    "explanation": "Each new Person() creates a separate object on the heap, so two objects are created in total."
+  },
+  {
+    "id": 10,
+    "question": "What does new Person[5] create?",
+    "options": [
+      "A. Five Person objects",
+      "B. One Person object",
+      "C. An array capable of holding five Person references",
+      "D. Nothing"
+    ],
+    "correct": "C",
+    "explanation": "new Person[5] creates the array structure only. The five slots are initialized to null, not to Person objects."
+  },
+  {
+    "id": 11,
+    "question": "How many Person objects exist after the following line?\n\nPerson[] arr = new Person[5];",
+    "options": [
+      "A. 0",
+      "B. 1",
+      "C. 5",
+      "D. 6"
+    ],
+    "correct": "A",
+    "explanation": "Only the array itself is created. No Person objects are instantiated — all slots are null."
+  },
+  {
+    "id": 12,
+    "question": "How many Person objects are created by the following code?\n\nPerson[] arr = new Person[3];\nfor (int i = 0; i < 3; i++)\n    arr[i] = new Person();",
+    "options": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 4"
+    ],
+    "correct": "C",
+    "explanation": "Each iteration of the loop calls new Person(), creating one object per iteration — 3 total."
+  },
+  {
+    "id": 13,
+    "question": "What is true about the following code?\n\nPerson obj = new Person();\nfor (int i = 0; i < 3; i++)\n    arr[i] = obj;",
+    "options": [
+      "A. Three different Person objects exist",
+      "B. One object is shared — all array cells point to the same object",
+      "C. No object exists",
+      "D. Compilation error"
+    ],
+    "correct": "B",
+    "explanation": "obj holds one reference. Assigning it to all cells means they all point to the same single object."
+  },
+  {
+    "id": 14,
+    "question": "What does the == operator compare when used between two object variables?",
+    "options": [
+      "A. The contents of the object's fields",
+      "B. The memory references (addresses) of the objects",
+      "C. The constructor values",
+      "D. The class names"
+    ],
+    "correct": "B",
+    "explanation": "== checks whether two references point to the exact same object in memory, not whether their fields are equal."
+  },
+  {
+    "id": 15,
+    "question": "What is printed by the following code?\n\nPerson p1 = new Person();\nPerson p2 = new Person();\nSystem.out.println(p1 == p2);",
+    "options": [
+      "A. true",
+      "B. false",
+      "C. 0",
+      "D. Compilation error"
+    ],
+    "correct": "B",
+    "explanation": "p1 and p2 are two separate objects at different memory addresses, so == returns false."
+  },
+  {
+    "id": 16,
+    "question": "What is method overloading?",
+    "options": [
+      "A. Replacing an inherited method with a new implementation",
+      "B. Defining multiple methods with the same name but different parameter lists",
+      "C. Having multiple classes with the same name",
+      "D. Using only static methods in a class"
+    ],
+    "correct": "B",
+    "explanation": "Overloading means the same method name can exist with different numbers or types of parameters."
+  },
+  {
+    "id": 17,
+    "question": "Which pair of method signatures is a valid example of overloading?",
+    "options": [
+      "A. sum(int, int) and sum(int, int)",
+      "B. sum(int, int) and sum(double, double)",
+      "C. sum(int, int) and SUM(int, int)",
+      "D. sum(int, int) and sum(int, int) with different return types"
+    ],
+    "correct": "B",
+    "explanation": "Valid overloading requires different parameter types or count. Only option B has genuinely different parameter types."
+  },
+  {
+    "id": 18,
+    "question": "Can two methods differ only in return type and be considered overloaded?",
+    "options": [
+      "A. Yes",
+      "B. No",
+      "C. Only for static methods",
+      "D. Only for constructors"
+    ],
+    "correct": "B",
+    "explanation": "The parameter list must differ for overloading. Return type alone is not enough — Java cannot distinguish the call."
+  },
+  {
+    "id": 19,
+    "question": "Why is method overloading useful?",
+    "options": [
+      "A. It reduces memory usage",
+      "B. It allows one logical operation to handle different parameter types cleanly",
+      "C. It prevents inheritance",
+      "D. It creates static variables automatically"
+    ],
+    "correct": "B",
+    "explanation": "Overloading lets you use one intuitive method name (like print or add) for related operations on different types."
+  },
+  {
+    "id": 20,
+    "question": "What does backward compatibility mean in the context of overloading?",
+    "options": [
+      "A. Deleting old methods when adding new ones",
+      "B. Keeping existing method signatures while adding new overloaded versions",
+      "C. Using only static methods",
+      "D. Avoiding constructors entirely"
+    ],
+    "correct": "B",
+    "explanation": "Backward compatibility means old code that calls existing method signatures continues to work after new versions are added."
+  },
+  {
+    "id": 21,
+    "question": "What problem can backward compatibility through overloading introduce?",
+    "options": [
+      "A. Compilation failure",
+      "B. Duplicate or redundant code across overloaded methods",
+      "C. Memory leak",
+      "D. Stack overflow"
+    ],
+    "correct": "B",
+    "explanation": "When you keep old methods alongside new ones, you may end up with similar logic duplicated in multiple methods."
+  },
+  {
+    "id": 22,
+    "question": "How can duplicated code across overloaded methods be reduced?",
+    "options": [
+      "A. Delete the older methods",
+      "B. Have the older overloaded version call the newer one with converted arguments",
+      "C. Use only private variables",
+      "D. Use arrays instead of parameters"
+    ],
+    "correct": "B",
+    "explanation": "The older method can convert its arguments and delegate to the more general version, keeping the logic in one place."
+  },
+  {
+    "id": 23,
+    "question": "What does the following method signature mean?\n\ndouble average(double... args)",
+    "options": [
+      "A. A recursive method",
+      "B. A generic method",
+      "C. A method that accepts a variable number of double arguments",
+      "D. An array constructor"
+    ],
+    "correct": "C",
+    "explanation": "The ... syntax is varargs — it lets you pass any number of double values, which are treated as an array inside the method."
+  },
+  {
+    "id": 24,
+    "question": "Which of the following calls to average(double... args) are valid?",
+    "options": [
+      "A. average()",
+      "B. average(1.0, 2.0)",
+      "C. average(arr) where arr is a double[]",
+      "D. All of the above"
+    ],
+    "correct": "D",
+    "explanation": "Varargs accepts zero arguments, multiple arguments, or an existing array of the matching type."
+  },
+  {
+    "id": 25,
+    "question": "Why is overriding toString() useful?",
+    "options": [
+      "A. It creates objects automatically",
+      "B. It lets you convert an object into a human-readable string representation",
+      "C. It changes field values",
+      "D. It makes methods static"
+    ],
+    "correct": "B",
+    "explanation": "toString() is called automatically when an object is printed or concatenated with a string, so overriding it gives meaningful output."
+  },
+  {
+    "id": 26,
+    "question": "What happens when you call System.out.println(date1) and the Date class overrides toString()?",
+    "options": [
+      "A. A runtime error occurs",
+      "B. toString() is called automatically and its result is printed",
+      "C. The constructor is called",
+      "D. The getter is called"
+    ],
+    "correct": "B",
+    "explanation": "println calls toString() on the object automatically when it needs a String representation."
+  },
+  {
+    "id": 27,
+    "question": "What is a class in Java?",
+    "options": [
+      "A. A variable",
+      "B. A blueprint that defines the structure and behavior of objects",
+      "C. A method",
+      "D. A package"
+    ],
+    "correct": "B",
+    "explanation": "A class is a template — it defines what fields and methods its objects will have."
+  },
+  {
+    "id": 28,
+    "question": "What is an object in Java?",
+    "options": [
+      "A. A package",
+      "B. A method call",
+      "C. A specific instance created from a class",
+      "D. A constructor"
+    ],
+    "correct": "C",
+    "explanation": "An object is a concrete instance of a class, with its own copy of the class's fields."
+  },
+  {
+    "id": 29,
+    "question": "Which part of a class defines its behavior?",
+    "options": [
+      "A. Fields only",
+      "B. Methods",
+      "C. Packages",
+      "D. Import statements"
+    ],
+    "correct": "B",
+    "explanation": "Methods define what an object can do — they contain the executable logic."
+  },
+  {
+    "id": 30,
+    "question": "Which part of a class defines its state?",
+    "options": [
+      "A. Fields",
+      "B. Methods",
+      "C. Constructors",
+      "D. Import statements"
+    ],
+    "correct": "A",
+    "explanation": "Fields (instance variables) store the data that represents an object's current state."
+  },
+  {
+    "id": 31,
+    "question": "Where is a local variable declared?",
+    "options": [
+      "A. Inside a method or block",
+      "B. Outside a class",
+      "C. In a package declaration",
+      "D. In import statements"
+    ],
+    "correct": "A",
+    "explanation": "Local variables are declared within a method or block and only exist during that method's execution."
+  },
+  {
+    "id": 32,
+    "question": "What is true about local variables?",
+    "options": [
+      "A. They are automatically initialized to zero",
+      "B. They must be explicitly initialized before use",
+      "C. They are shared by all methods in the class",
+      "D. They are stored as static"
+    ],
+    "correct": "B",
+    "explanation": "Unlike fields, local variables have no default value — using one before initializing it causes a compilation error."
+  },
+  {
+    "id": 33,
+    "question": "What is true about static (class-level) fields?",
+    "options": [
+      "A. A new copy is created with every method call",
+      "B. They are shared by all instances of the class",
+      "C. They must always be private",
+      "D. They only exist inside constructors"
+    ],
+    "correct": "B",
+    "explanation": "Static fields belong to the class itself, so all objects share the same single copy."
+  },
+  {
+    "id": 34,
+    "question": "What will count equal after the following, if each call to func() executes count++?\n\nstatic int count = 0;\nfunc();\nfunc();\nfunc();",
+    "options": [
+      "A. 0",
+      "B. 1",
+      "C. 2",
+      "D. 3"
+    ],
+    "correct": "D",
+    "explanation": "count is a static field shared across all calls. Three increments bring it from 0 to 3."
+  },
+  {
+    "id": 35,
+    "question": "How do you correctly access a static field from another class?",
+    "options": [
+      "A. Through an object reference only",
+      "B. Using ClassName.fieldName",
+      "C. Using the field name alone",
+      "D. Using this.fieldName"
+    ],
+    "correct": "B",
+    "explanation": "Static members belong to the class, so the correct syntax is ClassName.fieldName (e.g. Counter.count)."
+  },
+  {
+    "id": 36,
+    "question": "What is a qualified name in Java?",
+    "options": [
+      "A. A variable declaration",
+      "B. A full reference that includes the class name and the member name",
+      "C. A constructor call",
+      "D. A package declaration only"
+    ],
+    "correct": "B",
+    "explanation": "A qualified name combines a class (or object) name with a member, like Math.PI or System.out."
+  },
+  {
+    "id": 37,
+    "question": "Why do we use import statements in Java?",
+    "options": [
+      "A. To create objects",
+      "B. To access classes from other packages without writing their full qualified name",
+      "C. To overload methods",
+      "D. To initialize fields"
+    ],
+    "correct": "B",
+    "explanation": "import lets you write Scanner instead of java.util.Scanner throughout your code."
+  },
+  {
+    "id": 38,
+    "question": "Which statement about static methods is true?",
+    "options": [
+      "A. They belong to individual objects",
+      "B. They belong to the class itself and are called on the class",
+      "C. They require the this keyword",
+      "D. They must always be private"
+    ],
+    "correct": "B",
+    "explanation": "Static methods are invoked on the class (e.g. Math.sqrt()), not on an instance."
+  },
+  {
+    "id": 39,
+    "question": "Can a static method directly access an instance field?",
+    "options": [
+      "A. Yes, always",
+      "B. No — a static method has no implicit object, so it cannot access instance fields directly",
+      "C. Only if the field is private",
+      "D. Only through a constructor"
+    ],
+    "correct": "B",
+    "explanation": "Instance fields belong to objects. A static method has no this, so it cannot directly reference instance state."
+  },
+  {
+    "id": 40,
+    "question": "Why can't the this keyword be used inside a static method?",
+    "options": [
+      "A. It causes a syntax error only in some IDEs",
+      "B. There is no current object — static methods belong to the class, not an instance",
+      "C. Static methods are always private",
+      "D. Static methods always return void"
+    ],
+    "correct": "B",
+    "explanation": "this refers to the current object. Since static methods are not called on any object, this has no meaning there."
+  },
+  {
+    "id": 41,
+    "question": "Which method should you override to compare two objects by their content rather than their memory reference?",
+    "options": [
+      "A. toString()",
+      "B. equals()",
+      "C. compareTo()",
+      "D. hashCode()"
+    ],
+    "correct": "B",
+    "explanation": "equals() defines content-based equality. By default it checks references, but overriding it lets you compare fields instead."
+  },
+  {
+    "id": 42,
+    "question": "A method should return the larger of two int values. Which return type is correct?",
+    "options": [
+      "A. void",
+      "B. boolean",
+      "C. int",
+      "D. String"
+    ],
+    "correct": "C",
+    "explanation": "The method computes and returns an int value, so its return type must be int."
+  },
+  {
+    "id": 43,
+    "question": "What is the difference between passing a primitive and passing an object reference to a method?",
+    "options": [
+      "A. Both are passed by reference",
+      "B. Primitives are passed by value; object references are also passed by value but point to the original object",
+      "C. Objects are always fully copied",
+      "D. Primitives cannot be passed to methods"
+    ],
+    "correct": "B",
+    "explanation": "Java always passes by value. For primitives, the value itself is copied. For objects, the reference value is copied, so the method can modify the original object's fields."
+  },
+  {
+    "id": 44,
+    "question": "When is the this keyword necessary inside a method?",
+    "options": [
+      "A. Always",
+      "B. When a local variable or parameter shadows a field with the same name",
+      "C. Only in static methods",
+      "D. Only in constructors"
+    ],
+    "correct": "B",
+    "explanation": "this disambiguates between an instance field and a local variable or parameter that has the same name."
+  },
+  {
+    "id": 45,
+    "question": "A setter for age should only accept values between 0 and 120. Where should this validation go?",
+    "options": [
+      "A. In main()",
+      "B. In the getter",
+      "C. In the setter",
+      "D. In a separate utility class always"
+    ],
+    "correct": "C",
+    "explanation": "Setters are the correct place to validate input before storing it in a private field. This enforces encapsulation."
+  },
+  {
+    "id": 46,
+    "question": "Which toString() implementation is best for a Person with name and age fields?",
+    "options": [
+      "A. return name;",
+      "B. return age + \"\";",
+      "C. return \"Person{name=\" + name + \", age=\" + age + \"}\";",
+      "D. return this;"
+    ],
+    "correct": "C",
+    "explanation": "toString() should return a readable string that shows the object's meaningful state. Option D does not compile since this is not a String."
+  },
+  {
+    "id": 47,
+    "question": "A class has two constructors: Person(String name) and Person(String name, int age). What happens when new Person(\"Alice\") is called?",
+    "options": [
+      "A. Compilation error",
+      "B. The constructor with just the name parameter runs",
+      "C. Both constructors run",
+      "D. The second constructor runs with age defaulting to 0"
+    ],
+    "correct": "B",
+    "explanation": "Java selects the constructor whose parameter list matches the call. Person(\"Alice\") matches Person(String name)."
+  },
+  {
+    "id": 48,
+    "question": "What happens when you call a method on a variable that holds null?",
+    "options": [
+      "A. The method runs normally",
+      "B. The method returns 0",
+      "C. A NullPointerException is thrown at runtime",
+      "D. Java silently skips the call"
+    ],
+    "correct": "C",
+    "explanation": "Calling any method on a null reference causes a NullPointerException at runtime."
+  },
+  {
+    "id": 49,
+    "question": "What is the main advantage of using getter methods instead of public fields?",
+    "options": [
+      "A. Faster execution",
+      "B. Smaller objects in memory",
+      "C. Better control, validation, and the ability to change internal representation later",
+      "D. Automatic recursion"
+    ],
+    "correct": "C",
+    "explanation": "Getters let you add validation, computed values, or change the internal field type without breaking outside code."
+  },
+  {
+    "id": 50,
+    "question": "Which concept is demonstrated by having three constructors in the same class?",
+    "options": [
+      "A. Encapsulation",
+      "B. Recursion",
+      "C. Constructor overloading",
+      "D. Static binding"
+    ],
+    "correct": "C",
+    "explanation": "Multiple constructors with different parameter lists in the same class is constructor overloading."
+  }
 ]

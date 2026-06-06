@@ -1,52 +1,602 @@
 [
-  {"id":1,"question":"What does scanner.hasNextInt() do?","options":["A. Reads the next integer from input","B. Checks whether the next input token can be read as an integer","C. Converts the next token into an integer automatically","D. Clears invalid input from the scanner"],"correct":"B","explanation":"hasNextInt() only checks the next token without consuming it. To actually read it, nextInt() must be called."},
-  {"id":2,"question":"What happens if the user enters \"abc\" in the following code?\n\nScanner scanner = new Scanner(System.in);\nif (scanner.hasNextInt()) {\n    int num = scanner.nextInt();\n} else {\n    System.out.println(\"Invalid input\");\n}","options":["A. Runtime error","B. Compilation error","C. Prints Invalid input","D. Converts \"abc\" to 0"],"correct":"C","explanation":"hasNextInt() returns false for \"abc\", so the else block runs and prints Invalid input."},
-  {"id":3,"question":"What does the following pattern do?\n\nwhile (scanner.hasNext()) {\n    if (scanner.hasNextInt()) {\n        System.out.println(scanner.nextInt());\n    } else {\n        scanner.next();\n    }\n}","options":["A. It prints only valid integers and skips invalid tokens","B. It prints all input as strings","C. It causes an infinite loop","D. It converts all input to integers"],"correct":"A","explanation":"If the next token is an integer it reads and prints it. Otherwise scanner.next() consumes and discards the invalid token."},
-  {"id":4,"question":"What would happen if the else scanner.next() line were removed from the previous pattern?","options":["A. The program would skip invalid input automatically","B. The program could get stuck on the same invalid token indefinitely","C. The scanner would close","D. The invalid token would become an integer"],"correct":"B","explanation":"hasNextInt() does not consume input. Without next() to discard it, the same invalid token remains and the loop runs forever."},
-  {"id":5,"question":"Which statement about an abstract class is correct?","options":["A. It cannot have constructors","B. It cannot have fields","C. It cannot be instantiated directly","D. It must contain only abstract methods"],"correct":"C","explanation":"Abstract classes can have fields, constructors, and regular methods, but you cannot create an object with new AbstractClass()."},
-  {"id":6,"question":"Given: public abstract class Person {}\n\nWhich line is legal?","options":["A. Person p = new Person();","B. Person p;","C. new Person().toString();","D. Person p = Person();"],"correct":"B","explanation":"You may declare a reference variable of an abstract type, but you cannot instantiate it directly with new."},
-  {"id":7,"question":"Given:\n\nabstract class Animal {}\nclass Dog extends Animal {}\n\nWhich line is legal?","options":["A. Animal a = new Animal();","B. Animal a = new Dog();","C. Dog d = new Animal();","D. Dog d = new Animal() {};"],"correct":"B","explanation":"A superclass reference can point to a subclass object. This is upcasting and is always safe."},
-  {"id":8,"question":"Why might an abstract class contain a regular method with a full implementation?","options":["A. So subclasses can reuse or override it","B. Because abstract classes cannot contain abstract methods","C. Because Java requires every abstract class to have at least one regular method","D. So the abstract class can be instantiated"],"correct":"A","explanation":"Regular methods in an abstract class provide shared behavior that subclasses can inherit directly or override."},
-  {"id":9,"question":"What is wrong with the following code?\n\npublic abstract class Animal {\n    abstract Animal();\n}","options":["A. Abstract classes cannot have constructors","B. Constructors cannot be abstract","C. Constructors must be private","D. Constructors must return void"],"correct":"B","explanation":"A constructor must always have an implementation body. It cannot be declared abstract."},
-  {"id":10,"question":"What is wrong with the following code?\n\npublic abstract class Animal {\n    abstract static void sound();\n}","options":["A. Abstract methods cannot be static","B. Static methods must always be abstract","C. Abstract methods must always be private","D. Static methods must return a value"],"correct":"A","explanation":"Abstract methods require overriding through polymorphism, but static methods are not overridden polymorphically."},
-  {"id":11,"question":"Which statement about abstract methods is correct?","options":["A. They must have a body","B. They can be private","C. They must be declared inside an abstract class","D. They can appear inside any regular class"],"correct":"C","explanation":"An abstract method has no body and must live inside an abstract class. A regular class cannot contain abstract methods."},
-  {"id":12,"question":"What happens with the following code?\n\nabstract class Animal {\n    protected abstract void sound();\n}\nclass Dog extends Animal {}","options":["A. Legal, because Dog inherits sound()","B. Compilation error, because Dog must implement sound() or be declared abstract","C. Runtime error only when creating Dog","D. Legal only if sound() is private"],"correct":"B","explanation":"A concrete subclass must implement all inherited abstract methods. Since Dog does neither, compilation fails."},
-  {"id":13,"question":"How can the previous code be fixed without implementing sound() in Dog?","options":["A. Declare Dog as abstract","B. Make Animal non-abstract","C. Make sound() private","D. Remove extends Animal"],"correct":"A","explanation":"Declaring Dog as abstract postpones the requirement to implement sound() to a concrete subclass further down."},
-  {"id":14,"question":"What is printed when new Bulldog().sound() is called?\n\nabstract class Animal {\n    protected abstract void sound();\n}\nabstract class Dog extends Animal {}\nclass Bulldog extends Dog {\n    public void sound() { System.out.println(\"Bark\"); }\n}","options":["A. Compilation error","B. Runtime error","C. Bark","D. Nothing"],"correct":"C","explanation":"Bulldog is concrete and correctly implements the abstract method inherited through Dog, so Bark is printed."},
-  {"id":15,"question":"Why is the following illegal?\n\nabstract class Animal {\n    private abstract void sound();\n}","options":["A. Abstract methods cannot be private","B. Private methods must be abstract","C. Private methods cannot return void","D. Abstract classes cannot contain private members"],"correct":"A","explanation":"A private method cannot be overridden by subclasses, but an abstract method must be implemented by subclasses — these two requirements contradict each other."},
-  {"id":16,"question":"What is printed by the following code?\n\nabstract class Animal {\n    Animal() { System.out.println(\"Animal\"); }\n    protected abstract void sound();\n}\nclass Dog extends Animal {\n    Dog() { System.out.println(\"Dog\"); }\n    void sound() { System.out.println(\"Bark\"); }\n}\nclass Bulldog extends Dog {\n    Bulldog() { System.out.println(\"Bulldog\"); }\n    void sound() { System.out.println(\"WOOF\"); }\n}\n\nDog d = new Bulldog();\nd.sound();","options":["A. Bulldog then WOOF","B. Animal then Dog then Bulldog then WOOF","C. Animal then Dog then Bark","D. Compilation error"],"correct":"B","explanation":"Constructors run from superclass to subclass: Animal, Dog, Bulldog. Then sound() uses the runtime type Bulldog, so WOOF is printed."},
-  {"id":17,"question":"What is the compile-time type in this line?\n\nAnimal a = new Dog();","options":["A. Dog","B. Animal","C. Both equally","D. Unknown until runtime"],"correct":"B","explanation":"The compile-time type is always the declared reference type on the left — in this case Animal."},
-  {"id":18,"question":"What is the runtime type in this line?\n\nAnimal a = new Dog();","options":["A. Animal","B. Dog","C. Object","D. Cannot be known"],"correct":"B","explanation":"The runtime type is determined by what new actually creates — in this case a Dog object."},
-  {"id":19,"question":"What happens with the following code?\n\nclass A {}\nclass B extends A {\n    void fun() {}\n}\nA a = new B();\na.fun();","options":["A. Legal, because the runtime object is B","B. Compilation error, because reference type A has no fun()","C. Runtime error","D. Prints nothing"],"correct":"B","explanation":"The compiler checks available methods using the compile-time type. Since A does not declare fun(), the call is rejected."},
-  {"id":20,"question":"How can the previous code be fixed to call fun()?","options":["A. ((B)a).fun();","B. ((A)a).fun();","C. new A().fun();","D. A.fun();"],"correct":"A","explanation":"Casting a to B tells the compiler to treat it as a B reference, giving access to fun(). The cast is safe since the actual object is B."},
-  {"id":21,"question":"What is upcasting?","options":["A. Casting from a superclass reference to a subclass reference","B. Treating a subclass object as a superclass reference","C. Calling a private method from a subclass","D. Creating an abstract object"],"correct":"B","explanation":"Upcasting moves from a more specific type to a more general type, such as assigning a Dog to an Animal reference. It is always safe and implicit."},
-  {"id":22,"question":"Which line is a valid example of upcasting?","options":["A. Dog d = new Animal();","B. Animal a = new Dog();","C. Dog d = (Animal) new Dog();","D. Cat c = new Dog();"],"correct":"B","explanation":"Animal a = new Dog() is valid upcasting — a Dog is an Animal, so the assignment is safe without any explicit cast."},
-  {"id":23,"question":"What is downcasting?","options":["A. Treating a superclass reference as a subclass reference","B. Treating a subclass as its superclass","C. Creating a static inner class","D. Implementing an interface"],"correct":"A","explanation":"Downcasting converts a general parent-type reference to a more specific child-type reference, and requires an explicit cast."},
-  {"id":24,"question":"What happens at runtime with the following code?\n\nAnimal a = new Animal();\nDog d = (Dog) a;","options":["A. Compilation error","B. Runtime ClassCastException","C. Legal and safe","D. Converts Animal into Dog"],"correct":"B","explanation":"The compiler allows the cast, but the actual object is an Animal, not a Dog, so a ClassCastException is thrown at runtime."},
-  {"id":25,"question":"What happens with the following code?\n\nAnimal a = new Dog();\nDog d = (Dog) a;","options":["A. Legal and safe","B. Compilation error","C. Runtime error","D. a becomes abstract"],"correct":"A","explanation":"The actual object is a Dog, so casting the Animal reference back to Dog is valid and safe."},
-  {"id":26,"question":"What happens with the following code?\n\nObject obj = \"hello\";\nInteger num = (Integer) obj;","options":["A. Compilation error","B. Runtime ClassCastException","C. num becomes 0","D. num stores the length of the string"],"correct":"B","explanation":"The actual object is a String, not an Integer. The cast compiles but fails at runtime with a ClassCastException."},
-  {"id":27,"question":"Which tool helps avoid unsafe downcasting?","options":["A. super","B. instanceof","C. static","D. final"],"correct":"B","explanation":"instanceof checks whether an object is actually compatible with a target type before attempting the cast."},
-  {"id":28,"question":"What happens with the following code, assuming isBig() exists only in Dog?\n\nAnimal d = new Dog(5, \"Black\", 40);\nSystem.out.println(d.isBig());","options":["A. Legal, because the runtime type is Dog","B. Compilation error","C. Runtime error","D. Prints false"],"correct":"B","explanation":"The compiler checks the reference type Animal. Since Animal does not declare isBig(), the call is rejected at compile time."},
-  {"id":29,"question":"What happens with the following code, assuming isBig() exists only in Dog?\n\nAnimal d = new Dog(5, \"Black\", 40);\nSystem.out.println(((Dog)d).isBig());","options":["A. Legal if the actual object is Dog","B. Always compilation error","C. Always runtime error","D. Legal only if Animal is abstract"],"correct":"A","explanation":"Casting d to Dog tells the compiler to look for isBig() in Dog. Since the actual object is Dog the cast and call are safe."},
-  {"id":30,"question":"What happens with the following code?\n\nAnimal a = new Animal(7);\nSystem.out.println(((Dog)a).isBig());","options":["A. Compilation error","B. Runtime ClassCastException","C. Legal and prints true","D. Legal and prints false"],"correct":"B","explanation":"The compiler allows the cast, but the actual object is an Animal, not a Dog, causing a ClassCastException at runtime."},
-  {"id":31,"question":"What is method overriding?","options":["A. Two methods with the same name but different parameters in the same class","B. A subclass provides a new implementation for a method inherited from its superclass","C. A method is declared as static","D. A method is hidden by a local variable"],"correct":"B","explanation":"Overriding means a child class redefines an inherited method with the exact same signature to change its behavior."},
-  {"id":32,"question":"What is method overloading?","options":["A. Same method signature in subclass and superclass","B. Same method name with different parameter lists in the same class","C. Replacing a constructor","D. Casting an object to another type"],"correct":"B","explanation":"Overloading defines multiple methods with the same name but different numbers or types of parameters."},
-  {"id":33,"question":"What is printed by the following code?\n\nclass Plants {\n    public String getTheFamily(int a) { return \"Plants\"; }\n}\nclass WildPlants extends Plants {\n    public String getTheFamily(int a) { return \"WildPlants\"; }\n}\nPlants p = new WildPlants();\nSystem.out.println(p.getTheFamily(4));","options":["A. Plants","B. WildPlants","C. Compilation error","D. Runtime error"],"correct":"B","explanation":"getTheFamily() is overridden in WildPlants. Dynamic dispatch selects the runtime type WildPlants, so WildPlants is printed."},
-  {"id":34,"question":"Is the following a valid overload?\n\npublic String getTheFamily(int a) { ... }\npublic String getTheFamily() { ... }","options":["A. Yes, because the parameter list is different","B. No, because the return type is the same","C. No, because method names cannot repeat","D. Only inside abstract classes"],"correct":"A","explanation":"Overloading is valid when the parameter lists differ. Return type and access modifier are irrelevant to overloading."},
-  {"id":35,"question":"Why is the following illegal?\n\nclass Plants {\n    public void prtFamily() {}\n}\nclass WildPlants extends Plants {\n    private void prtFamily() {}\n}","options":["A. The subclass reduces the access level from public to private","B. The subclass uses the same return type","C. Private methods cannot exist in subclasses","D. void methods cannot be overridden"],"correct":"A","explanation":"When overriding, a subclass cannot reduce the visibility of the method. Access can be widened but never narrowed."},
-  {"id":36,"question":"What is an interface mainly used for?","options":["A. Defining required method signatures that implementing classes must provide","B. Creating objects directly with new","C. Replacing all abstract classes","D. Storing only private fields"],"correct":"A","explanation":"An interface defines a contract — a set of method signatures that any implementing class must fulfill."},
-  {"id":37,"question":"What is the implicit modifier of methods declared in a Java interface?","options":["A. private static","B. public abstract","C. protected final","D. public final"],"correct":"B","explanation":"Interface methods are implicitly public and abstract unless they use newer Java features such as default or static methods."},
-  {"id":38,"question":"What is the implicit modifier of fields declared in a Java interface?","options":["A. private","B. protected","C. public static final","D. public abstract"],"correct":"C","explanation":"Interface fields are implicitly public static final, making them shared constants that cannot be changed."},
-  {"id":39,"question":"Given:\n\ninterface Payment {\n    double TAX = 1.18;\n    void afterTax(double amount);\n}\n\nWhich statement is true?","options":["A. TAX can be changed inside implementing classes","B. TAX is a public static final constant","C. afterTax is private","D. Payment p = new Payment() is legal"],"correct":"B","explanation":"Interface fields are public static final by default, so TAX is a constant that cannot be reassigned."},
-  {"id":40,"question":"What happens with the following code?\n\ninterface Add { int add(int a, int b); }\ninterface Sub { int sub(int a, int b); }\nclass Cal implements Add, Sub {\n    public int add(int a, int b) { return a + b; }\n    public int sub(int a, int b) { return a - b; }\n}\nAdd x = new Cal();\nSystem.out.println(x.sub(2, 1));","options":["A. Prints 1","B. Prints 3","C. Compilation error","D. Runtime error"],"correct":"C","explanation":"The reference type is Add, and Add does not declare sub(). The compiler rejects the call."},
-  {"id":41,"question":"How can the previous code safely call sub()?","options":["A. x.sub(2, 1)","B. ((Sub)x).sub(2, 1) after checking x instanceof Sub","C. ((Add)x).sub(2, 1)","D. Cal.sub(2, 1)"],"correct":"B","explanation":"The object implements Sub, but the reference must be cast to Sub first. Checking instanceof Sub beforehand makes the cast safe."},
-  {"id":42,"question":"What happens with the following code?\n\ninterface Add { int add(int a, int b); }\ninterface Sub { int sub(int a, int b); }\nclass Cal implements Add {\n    public int add(int a, int b) { return a + b; }\n}\nAdd x = new Cal();\nSystem.out.println(((Sub)x).sub(2, 1));","options":["A. Compilation error","B. Runtime ClassCastException","C. Prints 1","D. Prints 3"],"correct":"B","explanation":"The cast to Sub compiles because both are interfaces, but Cal does not actually implement Sub, so a ClassCastException is thrown at runtime."},
-  {"id":43,"question":"Can a Java class extend more than one class?","options":["A. Yes, always","B. No, Java supports only single class inheritance","C. Only if both classes are abstract","D. Only if one of them is an interface"],"correct":"B","explanation":"Java deliberately does not support multiple class inheritance. A class can extend only one other class."},
-  {"id":44,"question":"Can a Java class implement multiple interfaces?","options":["A. Yes","B. No","C. Only two interfaces maximum","D. Only if the class is abstract"],"correct":"A","explanation":"A Java class can implement any number of interfaces, which is how Java achieves a form of multiple inheritance."},
-  {"id":45,"question":"What is true about the following code?\n\nabstract class Artist {\n    abstract void draw();\n}\ninterface Painter {\n    void draw();\n}\nclass Sketcher extends Artist implements Painter {\n    public void draw() { System.out.println(\"Sketching...\"); }\n}","options":["A. Illegal, because a class cannot extend and implement at the same time","B. Legal — one draw() implementation satisfies both the abstract class and the interface","C. Illegal, because interface methods cannot match abstract class methods","D. Legal only if Sketcher is abstract"],"correct":"B","explanation":"Sketcher extends one class and implements one interface. The single public draw() method satisfies both requirements simultaneously."},
-  {"id":46,"question":"What is a static nested class in Java?","options":["A. A class inside another class that requires an outer object to be created","B. A class defined inside another class that is accessed through the outer class name","C. A method defined inside another method","D. An anonymous class with no name"],"correct":"B","explanation":"A static nested class belongs to the outer class itself, not to any instance, and is created using OuterClass.NestedClass syntax."},
-  {"id":47,"question":"Given:\n\nclass A {\n    static class B {}\n}\n\nHow is B created?","options":["A. B b = new B();","B. A.B b = new A.B();","C. A.B b = new A().new B();","D. A b = new A.B();"],"correct":"B","explanation":"Static nested classes are accessed through the outer class name. new A.B() creates an instance without needing an outer object."},
-  {"id":48,"question":"Given:\n\nclass A {\n    class B {}\n}\n\nHow is B created?","options":["A. A.B b = new A.B();","B. A.B b = new A().new B();","C. B b = new A.B();","D. A.B b = B.new A();"],"correct":"B","explanation":"A non-static inner class requires an existing outer object. new A().new B() creates the outer object first, then the inner object."},
-  {"id":49,"question":"What can a regular non-static inner class access from its outer class?","options":["A. Only static fields of the outer class","B. Only public fields of the outer class","C. Both static and non-static fields of the outer object, including private ones","D. No outer class fields at all"],"correct":"C","explanation":"A regular inner class holds an implicit reference to its outer object and can access all its members, including private ones."},
-  {"id":50,"question":"Given:\n\npublic class Gen<T> {\n    private T a;\n    private T b;\n}\n\nWhich object creation is valid?","options":["A. Gen<int> g = new Gen<int>();","B. Gen<Integer> g = new Gen<Integer>();","C. Gen<double> g = new Gen<double>();","D. Gen<char> g = new Gen<char>();"],"correct":"B","explanation":"Generics require reference types, not primitives. int, double, and char are primitives — their wrapper classes Integer, Double, and Character must be used instead."}
+  {
+    "id": 1,
+    "question": "What does scanner.hasNextInt() do?",
+    "options": [
+      "A. Reads the next integer from input",
+      "B. Checks whether the next input token can be read as an integer",
+      "C. Converts the next token into an integer automatically",
+      "D. Clears invalid input from the scanner"
+    ],
+    "correct": "B",
+    "explanation": "hasNextInt() only checks the next token without consuming it. To actually read it, nextInt() must be called."
+  },
+  {
+    "id": 2,
+    "question": "What happens if the user enters \"abc\" in the following code?\n\nScanner scanner = new Scanner(System.in);\nif (scanner.hasNextInt()) {\n    int num = scanner.nextInt();\n} else {\n    System.out.println(\"Invalid input\");\n}",
+    "options": [
+      "A. Runtime error",
+      "B. Compilation error",
+      "C. Prints Invalid input",
+      "D. Converts \"abc\" to 0"
+    ],
+    "correct": "C",
+    "explanation": "hasNextInt() returns false for \"abc\", so the else block runs and prints Invalid input."
+  },
+  {
+    "id": 3,
+    "question": "What does the following pattern do?\n\nwhile (scanner.hasNext()) {\n    if (scanner.hasNextInt()) {\n        System.out.println(scanner.nextInt());\n    } else {\n        scanner.next();\n    }\n}",
+    "options": [
+      "A. It prints only valid integers and skips invalid tokens",
+      "B. It prints all input as strings",
+      "C. It causes an infinite loop",
+      "D. It converts all input to integers"
+    ],
+    "correct": "A",
+    "explanation": "If the next token is an integer it reads and prints it. Otherwise scanner.next() consumes and discards the invalid token."
+  },
+  {
+    "id": 4,
+    "question": "What would happen if the else scanner.next() line were removed from the previous pattern?",
+    "options": [
+      "A. The program would skip invalid input automatically",
+      "B. The program could get stuck on the same invalid token indefinitely",
+      "C. The scanner would close",
+      "D. The invalid token would become an integer"
+    ],
+    "correct": "B",
+    "explanation": "hasNextInt() does not consume input. Without next() to discard it, the same invalid token remains and the loop runs forever."
+  },
+  {
+    "id": 5,
+    "question": "Which statement about an abstract class is correct?",
+    "options": [
+      "A. It cannot have constructors",
+      "B. It cannot have fields",
+      "C. It cannot be instantiated directly",
+      "D. It must contain only abstract methods"
+    ],
+    "correct": "C",
+    "explanation": "Abstract classes can have fields, constructors, and regular methods, but you cannot create an object with new AbstractClass()."
+  },
+  {
+    "id": 6,
+    "question": "Given: public abstract class Person {}\n\nWhich line is legal?",
+    "options": [
+      "A. Person p = new Person();",
+      "B. Person p;",
+      "C. new Person().toString();",
+      "D. Person p = Person();"
+    ],
+    "correct": "B",
+    "explanation": "You may declare a reference variable of an abstract type, but you cannot instantiate it directly with new."
+  },
+  {
+    "id": 7,
+    "question": "Given:\n\nabstract class Animal {}\nclass Dog extends Animal {}\n\nWhich line is legal?",
+    "options": [
+      "A. Animal a = new Animal();",
+      "B. Animal a = new Dog();",
+      "C. Dog d = new Animal();",
+      "D. Dog d = new Animal() {};"
+    ],
+    "correct": "B",
+    "explanation": "A superclass reference can point to a subclass object. This is upcasting and is always safe."
+  },
+  {
+    "id": 8,
+    "question": "Why might an abstract class contain a regular method with a full implementation?",
+    "options": [
+      "A. So subclasses can reuse or override it",
+      "B. Because abstract classes cannot contain abstract methods",
+      "C. Because Java requires every abstract class to have at least one regular method",
+      "D. So the abstract class can be instantiated"
+    ],
+    "correct": "A",
+    "explanation": "Regular methods in an abstract class provide shared behavior that subclasses can inherit directly or override."
+  },
+  {
+    "id": 9,
+    "question": "What is wrong with the following code?\n\npublic abstract class Animal {\n    abstract Animal();\n}",
+    "options": [
+      "A. Abstract classes cannot have constructors",
+      "B. Constructors cannot be abstract",
+      "C. Constructors must be private",
+      "D. Constructors must return void"
+    ],
+    "correct": "B",
+    "explanation": "A constructor must always have an implementation body. It cannot be declared abstract."
+  },
+  {
+    "id": 10,
+    "question": "What is wrong with the following code?\n\npublic abstract class Animal {\n    abstract static void sound();\n}",
+    "options": [
+      "A. Abstract methods cannot be static",
+      "B. Static methods must always be abstract",
+      "C. Abstract methods must always be private",
+      "D. Static methods must return a value"
+    ],
+    "correct": "A",
+    "explanation": "Abstract methods require overriding through polymorphism, but static methods are not overridden polymorphically."
+  },
+  {
+    "id": 11,
+    "question": "Which statement about abstract methods is correct?",
+    "options": [
+      "A. They must have a body",
+      "B. They can be private",
+      "C. They must be declared inside an abstract class",
+      "D. They can appear inside any regular class"
+    ],
+    "correct": "C",
+    "explanation": "An abstract method has no body and must live inside an abstract class. A regular class cannot contain abstract methods."
+  },
+  {
+    "id": 12,
+    "question": "What happens with the following code?\n\nabstract class Animal {\n    protected abstract void sound();\n}\nclass Dog extends Animal {}",
+    "options": [
+      "A. Legal, because Dog inherits sound()",
+      "B. Compilation error, because Dog must implement sound() or be declared abstract",
+      "C. Runtime error only when creating Dog",
+      "D. Legal only if sound() is private"
+    ],
+    "correct": "B",
+    "explanation": "A concrete subclass must implement all inherited abstract methods. Since Dog does neither, compilation fails."
+  },
+  {
+    "id": 13,
+    "question": "How can the previous code be fixed without implementing sound() in Dog?",
+    "options": [
+      "A. Declare Dog as abstract",
+      "B. Make Animal non-abstract",
+      "C. Make sound() private",
+      "D. Remove extends Animal"
+    ],
+    "correct": "A",
+    "explanation": "Declaring Dog as abstract postpones the requirement to implement sound() to a concrete subclass further down."
+  },
+  {
+    "id": 14,
+    "question": "What is printed when new Bulldog().sound() is called?\n\nabstract class Animal {\n    protected abstract void sound();\n}\nabstract class Dog extends Animal {}\nclass Bulldog extends Dog {\n    public void sound() { System.out.println(\"Bark\"); }\n}",
+    "options": [
+      "A. Compilation error",
+      "B. Runtime error",
+      "C. Bark",
+      "D. Nothing"
+    ],
+    "correct": "C",
+    "explanation": "Bulldog is concrete and correctly implements the abstract method inherited through Dog, so Bark is printed."
+  },
+  {
+    "id": 15,
+    "question": "Why is the following illegal?\n\nabstract class Animal {\n    private abstract void sound();\n}",
+    "options": [
+      "A. Abstract methods cannot be private",
+      "B. Private methods must be abstract",
+      "C. Private methods cannot return void",
+      "D. Abstract classes cannot contain private members"
+    ],
+    "correct": "A",
+    "explanation": "A private method cannot be overridden by subclasses, but an abstract method must be implemented by subclasses — these two requirements contradict each other."
+  },
+  {
+    "id": 16,
+    "question": "What is printed by the following code?\n\nabstract class Animal {\n    Animal() { System.out.println(\"Animal\"); }\n    protected abstract void sound();\n}\nclass Dog extends Animal {\n    Dog() { System.out.println(\"Dog\"); }\n    void sound() { System.out.println(\"Bark\"); }\n}\nclass Bulldog extends Dog {\n    Bulldog() { System.out.println(\"Bulldog\"); }\n    void sound() { System.out.println(\"WOOF\"); }\n}\n\nDog d = new Bulldog();\nd.sound();",
+    "options": [
+      "A. Bulldog then WOOF",
+      "B. Animal then Dog then Bulldog then WOOF",
+      "C. Animal then Dog then Bark",
+      "D. Compilation error"
+    ],
+    "correct": "B",
+    "explanation": "Constructors run from superclass to subclass: Animal, Dog, Bulldog. Then sound() uses the runtime type Bulldog, so WOOF is printed."
+  },
+  {
+    "id": 17,
+    "question": "What is the compile-time type in this line?\n\nAnimal a = new Dog();",
+    "options": [
+      "A. Dog",
+      "B. Animal",
+      "C. Both equally",
+      "D. Unknown until runtime"
+    ],
+    "correct": "B",
+    "explanation": "The compile-time type is always the declared reference type on the left — in this case Animal."
+  },
+  {
+    "id": 18,
+    "question": "What is the runtime type in this line?\n\nAnimal a = new Dog();",
+    "options": [
+      "A. Animal",
+      "B. Dog",
+      "C. Object",
+      "D. Cannot be known"
+    ],
+    "correct": "B",
+    "explanation": "The runtime type is determined by what new actually creates — in this case a Dog object."
+  },
+  {
+    "id": 19,
+    "question": "What happens with the following code?\n\nclass A {}\nclass B extends A {\n    void fun() {}\n}\nA a = new B();\na.fun();",
+    "options": [
+      "A. Legal, because the runtime object is B",
+      "B. Compilation error, because reference type A has no fun()",
+      "C. Runtime error",
+      "D. Prints nothing"
+    ],
+    "correct": "B",
+    "explanation": "The compiler checks available methods using the compile-time type. Since A does not declare fun(), the call is rejected."
+  },
+  {
+    "id": 20,
+    "question": "How can the previous code be fixed to call fun()?",
+    "options": [
+      "A. ((B)a).fun();",
+      "B. ((A)a).fun();",
+      "C. new A().fun();",
+      "D. A.fun();"
+    ],
+    "correct": "A",
+    "explanation": "Casting a to B tells the compiler to treat it as a B reference, giving access to fun(). The cast is safe since the actual object is B."
+  },
+  {
+    "id": 21,
+    "question": "What is upcasting?",
+    "options": [
+      "A. Casting from a superclass reference to a subclass reference",
+      "B. Treating a subclass object as a superclass reference",
+      "C. Calling a private method from a subclass",
+      "D. Creating an abstract object"
+    ],
+    "correct": "B",
+    "explanation": "Upcasting moves from a more specific type to a more general type, such as assigning a Dog to an Animal reference. It is always safe and implicit."
+  },
+  {
+    "id": 22,
+    "question": "Which line is a valid example of upcasting?",
+    "options": [
+      "A. Dog d = new Animal();",
+      "B. Animal a = new Dog();",
+      "C. Dog d = (Animal) new Dog();",
+      "D. Cat c = new Dog();"
+    ],
+    "correct": "B",
+    "explanation": "Animal a = new Dog() is valid upcasting — a Dog is an Animal, so the assignment is safe without any explicit cast."
+  },
+  {
+    "id": 23,
+    "question": "What is downcasting?",
+    "options": [
+      "A. Treating a superclass reference as a subclass reference",
+      "B. Treating a subclass as its superclass",
+      "C. Creating a static inner class",
+      "D. Implementing an interface"
+    ],
+    "correct": "A",
+    "explanation": "Downcasting converts a general parent-type reference to a more specific child-type reference, and requires an explicit cast."
+  },
+  {
+    "id": 24,
+    "question": "What happens at runtime with the following code?\n\nAnimal a = new Animal();\nDog d = (Dog) a;",
+    "options": [
+      "A. Compilation error",
+      "B. Runtime ClassCastException",
+      "C. Legal and safe",
+      "D. Converts Animal into Dog"
+    ],
+    "correct": "B",
+    "explanation": "The compiler allows the cast, but the actual object is an Animal, not a Dog, so a ClassCastException is thrown at runtime."
+  },
+  {
+    "id": 25,
+    "question": "What happens with the following code?\n\nAnimal a = new Dog();\nDog d = (Dog) a;",
+    "options": [
+      "A. Legal and safe",
+      "B. Compilation error",
+      "C. Runtime error",
+      "D. a becomes abstract"
+    ],
+    "correct": "A",
+    "explanation": "The actual object is a Dog, so casting the Animal reference back to Dog is valid and safe."
+  },
+  {
+    "id": 26,
+    "question": "What happens with the following code?\n\nObject obj = \"hello\";\nInteger num = (Integer) obj;",
+    "options": [
+      "A. Compilation error",
+      "B. Runtime ClassCastException",
+      "C. num becomes 0",
+      "D. num stores the length of the string"
+    ],
+    "correct": "B",
+    "explanation": "The actual object is a String, not an Integer. The cast compiles but fails at runtime with a ClassCastException."
+  },
+  {
+    "id": 27,
+    "question": "Which tool helps avoid unsafe downcasting?",
+    "options": [
+      "A. super",
+      "B. instanceof",
+      "C. static",
+      "D. final"
+    ],
+    "correct": "B",
+    "explanation": "instanceof checks whether an object is actually compatible with a target type before attempting the cast."
+  },
+  {
+    "id": 28,
+    "question": "A reference is declared as Animal but holds a Dog object. Dog has a method fetch(). What happens when you call fetch() on the Animal reference?",
+    "options": [
+      "A. It works because the runtime object is Dog",
+      "B. Compilation error — Animal does not declare fetch()",
+      "C. Runtime error always",
+      "D. fetch() is inherited automatically by Animal"
+    ],
+    "correct": "B",
+    "explanation": "The compiler checks available methods based on the declared reference type. Since Animal does not declare fetch(), the call is rejected at compile time."
+  },
+  {
+    "id": 29,
+    "question": "What is the safest way to call a child-specific method through a parent reference?",
+    "options": [
+      "A. Call it directly on the parent reference",
+      "B. Check with instanceof first, then downcast and call the method",
+      "C. Use super to access child methods",
+      "D. Declare the method static"
+    ],
+    "correct": "B",
+    "explanation": "Checking instanceof before downcasting prevents a ClassCastException if the object is not actually of the expected child type."
+  },
+  {
+    "id": 30,
+    "question": "When exactly does a ClassCastException occur at runtime?",
+    "options": [
+      "A. When downcasting a reference whose actual object is not of the target type",
+      "B. When upcasting",
+      "C. When using instanceof",
+      "D. When calling toString()"
+    ],
+    "correct": "A",
+    "explanation": "Downcasting fails at runtime when the actual object is not compatible with the target type. Upcasting is always safe."
+  },
+  {
+    "id": 31,
+    "question": "What is method overriding?",
+    "options": [
+      "A. Two methods with the same name but different parameters in the same class",
+      "B. A subclass provides a new implementation for a method inherited from its superclass",
+      "C. A method is declared as static",
+      "D. A method is hidden by a local variable"
+    ],
+    "correct": "B",
+    "explanation": "Overriding means a child class redefines an inherited method with the exact same signature to change its behavior."
+  },
+  {
+    "id": 32,
+    "question": "What is method overloading?",
+    "options": [
+      "A. Same method signature in subclass and superclass",
+      "B. Same method name with different parameter lists in the same class",
+      "C. Replacing a constructor",
+      "D. Casting an object to another type"
+    ],
+    "correct": "B",
+    "explanation": "Overloading defines multiple methods with the same name but different numbers or types of parameters."
+  },
+  {
+    "id": 33,
+    "question": "What is printed by the following code?\n\nclass Plants {\n    public String getTheFamily(int a) { return \"Plants\"; }\n}\nclass WildPlants extends Plants {\n    public String getTheFamily(int a) { return \"WildPlants\"; }\n}\nPlants p = new WildPlants();\nSystem.out.println(p.getTheFamily(4));",
+    "options": [
+      "A. Plants",
+      "B. WildPlants",
+      "C. Compilation error",
+      "D. Runtime error"
+    ],
+    "correct": "B",
+    "explanation": "getTheFamily() is overridden in WildPlants. Dynamic dispatch selects the runtime type WildPlants, so WildPlants is printed."
+  },
+  {
+    "id": 34,
+    "question": "Is the following a valid overload?\n\npublic String getTheFamily(int a) { ... }\npublic String getTheFamily() { ... }",
+    "options": [
+      "A. Yes, because the parameter list is different",
+      "B. No, because the return type is the same",
+      "C. No, because method names cannot repeat",
+      "D. Only inside abstract classes"
+    ],
+    "correct": "A",
+    "explanation": "Overloading is valid when the parameter lists differ. Return type and access modifier are irrelevant to overloading."
+  },
+  {
+    "id": 35,
+    "question": "Why is the following illegal?\n\nclass Plants {\n    public void prtFamily() {}\n}\nclass WildPlants extends Plants {\n    private void prtFamily() {}\n}",
+    "options": [
+      "A. The subclass reduces the access level from public to private",
+      "B. The subclass uses the same return type",
+      "C. Private methods cannot exist in subclasses",
+      "D. void methods cannot be overridden"
+    ],
+    "correct": "A",
+    "explanation": "When overriding, a subclass cannot reduce the visibility of the method. Access can be widened but never narrowed."
+  },
+  {
+    "id": 36,
+    "question": "What is an interface mainly used for?",
+    "options": [
+      "A. Defining required method signatures that implementing classes must provide",
+      "B. Creating objects directly with new",
+      "C. Replacing all abstract classes",
+      "D. Storing only private fields"
+    ],
+    "correct": "A",
+    "explanation": "An interface defines a contract — a set of method signatures that any implementing class must fulfill."
+  },
+  {
+    "id": 37,
+    "question": "What is the implicit modifier of methods declared in a Java interface?",
+    "options": [
+      "A. private static",
+      "B. public abstract",
+      "C. protected final",
+      "D. public final"
+    ],
+    "correct": "B",
+    "explanation": "Interface methods are implicitly public and abstract unless they use newer Java features such as default or static methods."
+  },
+  {
+    "id": 38,
+    "question": "What is the implicit modifier of fields declared in a Java interface?",
+    "options": [
+      "A. private",
+      "B. protected",
+      "C. public static final",
+      "D. public abstract"
+    ],
+    "correct": "C",
+    "explanation": "Interface fields are implicitly public static final, making them shared constants that cannot be changed."
+  },
+  {
+    "id": 39,
+    "question": "Given:\n\ninterface Payment {\n    double TAX = 1.18;\n    void afterTax(double amount);\n}\n\nWhich statement is true?",
+    "options": [
+      "A. TAX can be changed inside implementing classes",
+      "B. TAX is a public static final constant",
+      "C. afterTax is private",
+      "D. Payment p = new Payment() is legal"
+    ],
+    "correct": "B",
+    "explanation": "Interface fields are public static final by default, so TAX is a constant that cannot be reassigned."
+  },
+  {
+    "id": 40,
+    "question": "What happens with the following code?\n\ninterface Add { int add(int a, int b); }\ninterface Sub { int sub(int a, int b); }\nclass Cal implements Add, Sub {\n    public int add(int a, int b) { return a + b; }\n    public int sub(int a, int b) { return a - b; }\n}\nAdd x = new Cal();\nSystem.out.println(x.sub(2, 1));",
+    "options": [
+      "A. Prints 1",
+      "B. Prints 3",
+      "C. Compilation error",
+      "D. Runtime error"
+    ],
+    "correct": "C",
+    "explanation": "The reference type is Add, and Add does not declare sub(). The compiler rejects the call."
+  },
+  {
+    "id": 41,
+    "question": "An abstract class Shape has an abstract method area(). A class Square extends Shape but does not implement area(). What must be true about Square?",
+    "options": [
+      "A. Square must be declared final",
+      "B. Square must also be declared abstract",
+      "C. Square automatically gets area() returning 0",
+      "D. Square cannot have constructors"
+    ],
+    "correct": "B",
+    "explanation": "A concrete class must implement all inherited abstract methods. If Square does not, it must itself be declared abstract."
+  },
+  {
+    "id": 42,
+    "question": "What is a default method in an interface?",
+    "options": [
+      "A. A method that must be overridden by every implementing class",
+      "B. A method with a full implementation provided directly in the interface",
+      "C. A private method",
+      "D. A static method only"
+    ],
+    "correct": "B",
+    "explanation": "Default methods provide a fallback implementation inside the interface. Implementing classes may override it but are not required to."
+  },
+  {
+    "id": 43,
+    "question": "Which statement is true when comparing interfaces to abstract classes?",
+    "options": [
+      "A. Interfaces can have constructors",
+      "B. A class can implement multiple interfaces but extend only one class",
+      "C. Abstract classes cannot have any implemented methods",
+      "D. Interfaces can have non-static instance fields"
+    ],
+    "correct": "B",
+    "explanation": "Multiple interface implementation is the key advantage. A class is limited to one direct superclass but can implement any number of interfaces."
+  },
+  {
+    "id": 44,
+    "question": "An interface Drawable has a method draw(). Both Circle and Rectangle implement Drawable. What is the benefit of declaring Drawable[] shapes?",
+    "options": [
+      "A. It forces all shapes to be identical in size",
+      "B. It allows treating different objects uniformly through the interface type",
+      "C. It prevents draw() from being overridden",
+      "D. It makes draw() static"
+    ],
+    "correct": "B",
+    "explanation": "Programming to an interface allows different implementations to be handled uniformly, which is the essence of polymorphism."
+  },
+  {
+    "id": 45,
+    "question": "Which of the following is a valid abstract method declaration?",
+    "options": [
+      "A. abstract void display() {}",
+      "B. abstract void display();",
+      "C. void abstract display();",
+      "D. abstract private void display();"
+    ],
+    "correct": "B",
+    "explanation": "Abstract methods have no body and end with a semicolon. They cannot be private because subclasses must be able to override them."
+  },
+  {
+    "id": 46,
+    "question": "A variable is declared as Flyable (an interface). The actual object is a Bird that also implements Swimmable. How do you call swim()?",
+    "options": [
+      "A. Directly on the Flyable reference",
+      "B. Cast to Swimmable first: ((Swimmable) variable).swim()",
+      "C. Use super.swim()",
+      "D. It is called automatically"
+    ],
+    "correct": "B",
+    "explanation": "The declared type is Flyable which does not include swim(). You must cast to Swimmable to access that method."
+  },
+  {
+    "id": 47,
+    "question": "What is the main advantage of a static nested class?",
+    "options": [
+      "A. It can directly access the outer class's instance fields",
+      "B. It logically groups a helper class inside its owner class without requiring an outer instance",
+      "C. It replaces the need for interfaces",
+      "D. It automatically makes the outer class abstract"
+    ],
+    "correct": "B",
+    "explanation": "Static nested classes are useful for grouping related code. Unlike inner classes, they do not need an outer object to be instantiated."
+  },
+  {
+    "id": 48,
+    "question": "What is the main benefit of using ArrayList<String> instead of a raw ArrayList?",
+    "options": [
+      "A. The list runs faster",
+      "B. Type safety is enforced at compile time, preventing casting errors at runtime",
+      "C. The list can store more elements",
+      "D. It prevents inheritance"
+    ],
+    "correct": "B",
+    "explanation": "Generics catch type mismatches at compile time. Without them, wrong types can be inserted and cause ClassCastException at runtime."
+  },
+  {
+    "id": 49,
+    "question": "What can a regular non-static inner class access from its outer class?",
+    "options": [
+      "A. Only static fields of the outer class",
+      "B. Only public fields of the outer class",
+      "C. Both static and non-static fields of the outer object, including private ones",
+      "D. No outer class fields at all"
+    ],
+    "correct": "C",
+    "explanation": "A regular inner class holds an implicit reference to its outer object and can access all its members, including private ones."
+  },
+  {
+    "id": 50,
+    "question": "Given:\n\npublic class Gen<T> {\n    private T a;\n    private T b;\n}\n\nWhich object creation is valid?",
+    "options": [
+      "A. Gen<int> g = new Gen<int>();",
+      "B. Gen<Integer> g = new Gen<Integer>();",
+      "C. Gen<double> g = new Gen<double>();",
+      "D. Gen<char> g = new Gen<char>();"
+    ],
+    "correct": "B",
+    "explanation": "Generics require reference types, not primitives. int, double, and char are primitives — their wrapper classes Integer, Double, and Character must be used instead."
+  }
 ]
