@@ -6,16 +6,16 @@ import { useUser } from '../context/UserContext'
 const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6, 7])
 const TOTAL_QUESTIONS  = 50
 
-// Short topic tags shown below the big level number
+// Subtitle keyword tags shown below the big level number on each card
 const TOPIC_TAGS = {
-  1: 'Java Basics',
-  2: 'Encapsulation',
-  3: 'Inheritance',
-  4: 'Abstract',
-  5: 'Interfaces',
-  6: 'Collections',
-  7: 'Wildcards',
-  8: 'Locked',
+  1: 'CLASSES · METHODS · JVM',
+  2: 'GETTERS · SETTERS · OVERLOADING',
+  3: 'EXTENDS · OVERRIDE · CASTING',
+  4: 'ABSTRACT · INTERFACE · CASTING',
+  5: 'GENERICS · LISTS · MAPS',
+  6: 'SORT · STACK · HASHMAP',
+  7: 'WILDCARDS · ENUM · TRY-CATCH',
+  8: 'LOCKED',
 }
 
 // ─── Per-level color themes ───────────────────────────────────────────────────
