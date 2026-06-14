@@ -27,6 +27,7 @@ const THEMES = {
   5: { grad: 'linear-gradient(135deg,#15803d 0%,#0f766e 100%)', accent: '#34d399', glow: 'rgba(52,211,153,0.5)'  },
   6: { grad: 'linear-gradient(135deg,#a16207 0%,#c2410c 100%)', accent: '#fbbf24', glow: 'rgba(251,191,36,0.5)'  },
   7: { grad: 'linear-gradient(135deg,#be185d 0%,#6d28d9 100%)', accent: '#f472b6', glow: 'rgba(244,114,182,0.5)' },
+  8: { grad: 'linear-gradient(135deg,#c0392b 0%,#8e44ad 100%)', accent: '#f1948a', glow: 'rgba(241,148,138,0.5)' },
   locked: { grad: 'linear-gradient(135deg,#1f2937 0%,#111827 100%)', accent: '#4b5563', glow: 'rgba(75,85,99,0.3)' },
 }
 
