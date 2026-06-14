@@ -57,9 +57,9 @@ export const levels = [
   },
   {
     id: 8,
-    title: "Coming Soon",
-    description: "More levels on the way",
-    icon: "🤝",
+    title: "Lambda Expressions & JDBC",
+    description: "Lambdas, streams, and database connectivity",
+    icon: "🔗",
     color: "from-cyan-500 to-sky-600",
     accent: "cyan",
   },

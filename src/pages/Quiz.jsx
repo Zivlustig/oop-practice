@@ -44,6 +44,7 @@ const questionModules = {
   5: () => import('../data/level5.json'),
   6: () => import('../data/level6.json'),
   7: () => import('../data/level7.json'),
+  8: () => import('../data/level8.json'),
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────

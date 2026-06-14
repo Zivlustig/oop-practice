@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { levels } from '../data/levels'
 import { useUser } from '../context/UserContext'
 
-const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6, 7])
+const AVAILABLE_LEVELS = new Set([1, 2, 3, 4, 5, 6, 7, 8])
 const TOTAL_QUESTIONS  = 50
 
 // Subtitle keyword tags shown below the big level number on each card
@@ -15,7 +15,7 @@ const TOPIC_TAGS = {
   5: 'GENERICS · LISTS · MAPS',
   6: 'SORT · STACK · HASHMAP',
   7: 'WILDCARDS · ENUM · TRY-CATCH',
-  8: 'LOCKED',
+  8: 'LAMBDA · STREAMS · DATABASE',
 }
 
 // ─── Per-level color themes ───────────────────────────────────────────────────

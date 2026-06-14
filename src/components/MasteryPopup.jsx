@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Last level that has question data
-const MAX_LEVEL = 7
+const MAX_LEVEL = 8
 
 // Confetti palette
 const CONFETTI_COLORS = ['#a78bfa', '#f472b6', '#fbbf24', '#34d399', '#60a5fa', '#fb923c', '#e879f9', '#ffffff']
